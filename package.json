@@ -1,0 +1,68 @@
+{
+  "name": "pixelboy",
+  "productName": "PixelBoy",
+  "version": "0.1.0",
+  "description": "A simple, Photoshop-style painting and animation program.",
+  "main": "electron/main.js",
+  "author": "Keith Burgun",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --publish never",
+    "release": "electron-builder --win --publish always",
+    "build:web": "node scripts/build-web.js",
+    "version": "node scripts/sync-version.js && git add app/js/version.js"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.pixelboy.app",
+    "productName": "PixelBoy",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "app/**/*",
+      "package.json"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "pixelboy",
+        "name": "PixelBoy Project",
+        "role": "Editor"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "artifactName": "PixelBoy-Setup.exe"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "keithburgun",
+        "repo": "pixelboy",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keithburgun/pixelboy.git"
+  },
+  "homepage": "https://github.com/keithburgun/pixelboy"
+}

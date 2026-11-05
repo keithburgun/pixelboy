@@ -1,0 +1,31 @@
+# Builds the Windows installer and the itch.io web zip whenever you push a version tag (e.g. v0.2.0),
+# and publishes them as a GitHub Release. Installed copies of PixelBoy see the new release and update themselves.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build and publish Windows installer
+        run: npx electron-builder --win --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build web version (for itch.io)
+        run: npm run build:web
+      - name: Attach web zip to the release
+        run: gh release upload ${{ github.ref_name }} dist/pixelboy-web.zip --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
