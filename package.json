@@ -11,7 +11,7 @@
     "dist": "electron-builder --win --publish never",
     "release": "electron-builder --win --publish always",
     "build:web": "node scripts/build-web.js",
-    "version": "node scripts/sync-version.js && git add app/js/version.js"
+    "version": "node scripts/sync-version.js"
   },
   "dependencies": {
     "electron-updater": "^6.3.9"

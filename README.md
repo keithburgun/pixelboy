@@ -29,11 +29,14 @@ You can also just open `app/index.html` in Chrome or Edge — the web version is
 ## Release an update
 
 ```
-npm version patch        # 0.1.0 -> 0.1.1 (use "minor" for bigger releases)
-git push --follow-tags
+npm version patch --no-git-tag-version   # 0.1.0 -> 0.1.1 (use "minor" for bigger releases)
+git commit -am "Release 0.1.1"
+git push
 ```
 
-The GitHub Action (`.github/workflows/release.yml`) builds the Windows installer, publishes a GitHub Release, and attaches `pixelboy-web.zip`; `pages.yml` updates the browser version. Installed copies check GitHub a few seconds after launch, download the update in the background, and show **Restart to Update** in the status bar. *Help → Check for Updates* checks on demand.
+(Or just edit `"version"` in `package.json` on GitHub and commit.)
+
+When the version changes on `main`, the GitHub Action (`.github/workflows/release.yml`) builds the Windows installer, publishes a GitHub Release, and attaches `pixelboy-web.zip`; `pages.yml` updates the browser version. Installed copies check GitHub a few seconds after launch, download the update in the background, and show **Restart to Update** in the status bar. *Help → Check for Updates* checks on demand.
 
 The installer isn't code-signed, so Windows SmartScreen will warn the first time someone installs it ("More info → Run anyway"). Updates still work.
 

@@ -1,10 +1,10 @@
 # Publishes the web version to GitHub Pages (https://keithburgun.github.io/pixelboy/)
-# on every version tag. Requires Settings → Pages → Source: "GitHub Actions".
+# whenever main changes. Requires Settings → Pages → Source: "GitHub Actions".
 name: Web version (GitHub Pages)
 
 on:
   push:
-    tags: ['v*']
+    branches: [main]
   workflow_dispatch:
 
 permissions:
